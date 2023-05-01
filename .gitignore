@@ -1,0 +1,5 @@
+resources/caps/*
+!resources/caps/.gitkeep
+
+resources/dicts/*
+!resources/dicts/.gitkeep

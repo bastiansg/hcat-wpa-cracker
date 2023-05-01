@@ -1,0 +1,24 @@
+services:
+    hcat-cracker:
+        image: hcat-cracker
+        container_name: hcat-cracker
+        network_mode: host
+        deploy:
+            resources:
+                reservations:
+                    devices:
+                        - capabilities: [ gpu ]
+        shm_size: "16gb"
+        build:
+            args:
+                - HASHCAT_VERSION=${HASHCAT_VERSION}
+                - HASHCAT_UTILS_VERSION=${HASHCAT_UTILS_VERSION}
+                - HCXTOOLS_VERSION=${HCXTOOLS_VERSION}
+                - HCXDUMPTOOL_VERSION=${HCXDUMPTOOL_VERSION}
+                - HCXKEYS_VERSION=${HCXKEYS_VERSION}
+
+        volumes:
+            - $PWD/${RESOURCES_VOLUME_MOUNT}
+        env_file:
+            - .env
+        privileged: true

@@ -18,7 +18,7 @@ services:
                 - HCXKEYS_VERSION=${HCXKEYS_VERSION}
 
         volumes:
-            - $PWD/${RESOURCES_VOLUME_MOUNT}
-        env_file:
-            - .env
-        privileged: true
+            - $PWD/resources:/resources
+        # env_file:
+        #     - .env
+        # privileged: true

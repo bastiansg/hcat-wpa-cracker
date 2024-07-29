@@ -4,6 +4,9 @@
 build:
 	docker compose build hcat-cracker
 
+test: build
+	docker compose run --entrypoint="hashcat -b" hcat-cracker
+
 run: check-cap-file check-dict-file
 run:
 	docker compose run -e PCAP_FILE=$(PCAP_FILE) -e DICT_FILE=$(DICT_FILE) hcat-cracker

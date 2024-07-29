@@ -1,9 +1,7 @@
-FROM nvcr.io/nvidia/cuda:12.1.1-devel-ubuntu22.04
+FROM nvcr.io/nvidia/cuda:12.4.1-runtime-ubuntu22.04
+
 # ref: https://github.com/dizcza/docker-hashcat/blob/master/Dockerfile
-
 LABEL com.nvidia.volumes.needed="nvidia_driver"
-
-# OS packages
 RUN apt-get update && apt-get install -y --no-install-recommends \
     git \
     wget \
@@ -13,6 +11,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libz-dev \
     libssl-dev \
     zlib1g-dev \
+    libpcap-dev \
     build-essential \
     ocl-icd-libopencl1 \
     libcurl4-openssl-dev \
@@ -21,7 +20,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /tmp/* /var/tmp/* \
     && rm -rf /var/lib/apt/lists/*
 
-# clean
 RUN rm -rf /tmp/*
 
 RUN mkdir -p /etc/OpenCL/vendors && \
@@ -36,36 +34,33 @@ ENV LD_LIBRARY_PATH=/usr/local/nvidia/lib:/usr/local/nvidia/lib64:${LD_LIBRARY_P
 ENV NVIDIA_VISIBLE_DEVICES=all
 ENV NVIDIA_DRIVER_CAPABILITIES=compute,utility
 
-# build & install hashcat + utils
-
 WORKDIR /root
-
-ARG HASHCAT_VERSION
-ARG HASHCAT_UTILS_VERSION
-ARG HCXTOOLS_VERSION
-ARG HCXDUMPTOOL_VERSION
-ARG HCXKEYS_VERSION
 
 RUN update-pciids
 
+ARG HASHCAT_VERSION
 RUN git clone https://github.com/hashcat/hashcat.git \
     && cd hashcat \
     && git checkout ${HASHCAT_VERSION} \
-    && make install -j `nproc`
+    && make install -j
 
+ARG HASHCAT_UTILS_VERSION
 RUN git clone https://github.com/hashcat/hashcat-utils.git \
     && cd hashcat-utils/src \
     && git checkout ${HASHCAT_UTILS_VERSION} && make \
     && ln -s /root/hashcat-utils/src/cap2hccapx.bin /usr/bin/cap2hccapx
 
+ARG HCXTOOLS_VERSION
 RUN git clone https://github.com/ZerBea/hcxtools.git \
     && cd hcxtools \
     && git checkout ${HCXTOOLS_VERSION} && make install
 
+ARG HCXDUMPTOOL_VERSION
 RUN git clone https://github.com/ZerBea/hcxdumptool.git \
     && cd hcxdumptool \
     && git checkout ${HCXDUMPTOOL_VERSION} && make install
 
+ARG HCXKEYS_VERSION
 RUN git clone https://github.com/hashcat/kwprocessor.git \
     && cd kwprocessor \
     && git checkout ${HCXKEYS_VERSION} && make \

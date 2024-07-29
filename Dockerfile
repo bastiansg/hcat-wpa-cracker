@@ -67,6 +67,7 @@ RUN git clone https://github.com/hashcat/kwprocessor.git \
     && ln -s /root/kwprocessor/kwp /usr/bin/kwp
 
 WORKDIR /root/hcat-cracker
+# ENTRYPOINT ["/bin/bash"]
 
 COPY entrypoint.sh .
 ENTRYPOINT bash entrypoint.sh

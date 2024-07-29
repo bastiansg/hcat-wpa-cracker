@@ -1,4 +1,4 @@
-# Hashcat WPA Cracker
+# WPA Cracker
 A Dockerized tool for cracking WPA/WPA2 passwords using Hashcat.
 
 ## Setup

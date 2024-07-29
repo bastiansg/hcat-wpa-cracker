@@ -14,7 +14,7 @@ $ sudo apt install make
 ```
 
 #### 3. Install Docker
-Follow the instructions [here](https://docs.docker.com/engine/install/ubuntu/) to install Docker and including the `compose plugin`. Ensure that Buildkit is enabled as described [here](https://docs.docker.com/build/buildkit/).
+Follow the instructions [here](https://docs.docker.com/engine/install/ubuntu/) to install Docker and include the `compose plugin`. Ensure that Buildkit is enabled as described [here](https://docs.docker.com/build/buildkit/).
 
 #### 4. Install NVIDIA Container Toolkit:
 Follow the installation guide [here](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html).

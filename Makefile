@@ -9,7 +9,7 @@ test: build
 
 run: check-cap-file check-dict-file
 run:
-	docker compose run -e PCAP_FILE=$(PCAP_FILE) -e DICT_FILE=$(DICT_FILE) hcat-cracker
+	docker compose run --rm -e PCAP_FILE=$(PCAP_FILE) -e DICT_FILE=$(DICT_FILE) hcat-cracker
 
 
 check-cap-file:

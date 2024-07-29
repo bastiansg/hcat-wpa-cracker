@@ -34,5 +34,7 @@ Replace **PCAP_FILE** with the path to the capture file containing at least one 
 
 #### Example
 ```bash
-$ make run PCAP_FILE=handshake.pcap DICT_FILE=dictionary.txt
+$ make run PCAP_FILE=handshake.cap DICT_FILE=dictionary.txt
 ```
+
+![](assets/example.gif)
